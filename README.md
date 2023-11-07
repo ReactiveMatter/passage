@@ -53,3 +53,7 @@ When rendering the `_template/<template_name>.php` file is called. The `_templat
 `$site` variable contains all metadata contained in `config.yml` which is at the root folder in which `_engine` is placed. The variables are key of this array.
 
 `$page` variable contains all metadata contained in frontmatter of a page. The variables are key of this array.
+
+# Assets
+
+All files stored in `assets` folder will be copied to `_site/assets` as it is without any processing. This is used for images, css/js files, and other resources.
