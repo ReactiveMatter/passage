@@ -12,8 +12,11 @@ mb_internal_encoding('UTF-8');
 $parsedown = new Parsedown();
 
 $site = Yaml::parseFile($base.DS."config.yml");
+$site['base'] = trim($site['base'], "/");
 
-$site['base'] = rtrim($site['base'], "/");
+if(strlen($site['base']) > 0 )
+{ $site['base'] = "/".$site['base']; }
+
 $supported_extensions = $site['support'];
 $site['default-title'] = 'Untitled';
 
