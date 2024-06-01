@@ -12,10 +12,18 @@ mb_internal_encoding('UTF-8');
 $parsedown = new Parsedown();
 
 $site = Yaml::parseFile($base.DS."config.yml");
-$site['base'] = trim($site['base'], "/");
 
-if(strlen($site['base']) > 0 )
-{ $site['base'] = "/".$site['base']; }
+if(isset($site['base']))
+{
+    $site['base'] = trim($site['base'], "/");
+    if(strlen($site['base']) > 0 )
+    { $site['base'] = "/".$site['base']; }
+}
+else
+{
+    $site['base'] = '';
+}
+
 
 $supported_extensions = $site['support'];
 $site['default-title'] = 'Untitled';
@@ -78,6 +86,7 @@ function parse($file) {
             
         }
 
+        $page['title']= trim($page['title']);
 
         /* Extract tags */
 
@@ -130,7 +139,17 @@ function parse($file) {
     
 
         $fileContent = "";
-        $layout = "page";
+        
+        /* Making page as default layout */
+        if(isset($site['default-layout']))
+        {   
+            $layout = $site['default-layout'];
+        }
+        else
+        {
+            $layout = "page";
+        }
+        
 
         if(isset($page['layout']))
         {   
@@ -140,6 +159,21 @@ function parse($file) {
                 $layout = $page['layout'];
             }
              
+        }
+        else
+        {   
+            /* If page layout is not set, the folder name will be the layout */
+            $slug_parts = explode('/', trim($slug, "/"));
+            if(sizeof($slug_parts)>1)
+            {
+                $folder_name = trim($slug_parts[sizeof($slug_parts) - 2]);
+                $file = $base.DS."_template".DS.$folder_name.".php";
+                if (file_exists($file) && is_readable($file)) 
+                {
+                    $layout = $folder_name;
+                }
+            }
+
         }
 
         $page['layout'] = $layout;
@@ -182,9 +216,9 @@ function createHTMLFile($page)
 
     $destination = $base.DS.$site['output-dir'].DS.$destination.DS."index.html";
 
-    echo "Built ".$page['slug']."\n";
+    echo "Built ".$page['slug']."/index.html"."\n";
     ob_start();
-    include("../_template/".$page['layout'].".php");
+    include($base.DS."_template/".$page['layout'].".php");
     $fileContent = ob_get_clean();
     $file = fopen($destination, "w");
     fwrite($file, $fileContent);
@@ -227,6 +261,38 @@ function generateHTMLFiles($pages)
 
 }
 
+function sortByDate($pages)
+{
+     usort($pages, function($a, $b){
+        if(!isset($a['date']))
+        {
+            $a['date'] = -1;
+        }
+
+        if(!isset($b['date']))
+        {
+            $b['date'] = -1;
+        }
+
+        return $b['date'] - $a['date'];
+    });
+
+     return $pages;
+}
+
+   
+
+function generateFeed()
+{
+    global $base, $pages, $site;
+
+    $file = $base.DS."_template".DS."feed".".php";
+    if (file_exists($file) && is_readable($file)) 
+    {
+        include($base.DS."_template".DS."feed".".php");
+    }
+}
+
 function copyAssets($dir)
 {   global $base, $site;
     $entries = scandir($dir);
@@ -262,4 +328,5 @@ function copyAssets($dir)
 
 scan($base);
 generateHTMLFiles($pages);
+generateFeed();
 copyAssets($base.DS."_template");

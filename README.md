@@ -48,8 +48,13 @@ A file tagged with `draft` will not be rendered.
 
 # Template
 
-When rendering the `_template/<template_name>.php` file is called. The `_template` folder is placed in the same folder in which `_engine` is placed.
+The presentation of the page is handled by the template. The template files resides in `_template` folder. The `_template` folder is placed in the same folder in which `_engine` is placed.
 
+## Layout
+
+When rendering a page, where the layout property is set, the `_template/<layout_name>.php` file is called.  If the layout is not set, the nearest *folder name* is set as the layout. If page is in root, the value of `default-layout` set in config will be used. If `default-layout` is not set, then `page` will be set as default layout.
+
+## Variables available inside template
 `$site` variable contains all metadata contained in `config.yml` which is at the root folder in which `_engine` is placed. The variables are key of this array.
 
 `$page` variable contains all metadata contained in frontmatter of a page. The variables are key of this array.
