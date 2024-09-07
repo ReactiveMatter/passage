@@ -13,7 +13,7 @@ It uses Parsedown and Symphony YAML component to generate static html files.
 The sitewide config is stored in `config.yml` file. The following config options are available.
 ```
 base: # The base for urls
-title: # Site title (Alternatively if list line of the content is a heading it is used as title.)
+title: # Site title (Alternatively if first line of the content is a heading it is used as title.)
 support: [md, txt, html, htm] # File extensions which will be parsed
 buildall: true # Whether to build pages without frontmatter
 output-dir: _site # Output directory
@@ -21,6 +21,8 @@ default-category: General
 footer:  # Footer text, Implemented by template
 date-format: 'd F, Y' # Date display format, Implemented by template
 ```
+
+You may add more options in config file, and the value can be accessed form the $site variable.
 
 ## YAML metadata
 
