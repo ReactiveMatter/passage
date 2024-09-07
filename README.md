@@ -67,4 +67,4 @@ All files stored in `assets` folder will be copied to `_site/assets` as it is wi
 
 # Dynamic CMS
 
-If you need a dynamic CMS instead of SSG, try [Tunnel CMA](https://reactivematter.github.io/tunnelcms/), a dynamic twin of Passage.
+If you need a dynamic CMS instead of SSG, try [Tunnel CMA](https://reactivematter.github.io/tunnelcms/), a dynamic counterpart of Passage.
