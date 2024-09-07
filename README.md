@@ -61,10 +61,10 @@ When rendering a page, where the layout property is set, the `_template/<layout_
 
 `$page` variable contains all metadata contained in frontmatter of a page. The variables are key of this array.
 
-# Assets
+## Assets
 
 All files stored in `assets` folder will be copied to `_site/assets` as it is without any processing. This is used for images, css/js files, and other resources.
 
-# Dynamic CMS
+## Dynamic CMS
 
 If you need a dynamic CMS instead of SSG, try [Tunnel CMA](https://reactivematter.github.io/tunnelcms/), a dynamic counterpart of Passage.
