@@ -237,8 +237,6 @@ function scan($dir)
                 $page = parse($path);
                 if($page)
                 {   
-                    // echo "Pushing ".$page['slug']."\n";
-                    // echo "Total pages pushed: ".sizeof($pages)."\n";
                     array_push($pages, $page);
                 }
             } elseif (is_dir($path)) {
