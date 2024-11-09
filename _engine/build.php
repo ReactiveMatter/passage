@@ -1,6 +1,5 @@
 <?php
 require 'vendor/autoload.php'; // Include the Composer autoloader for Parsedown
-require 'ParsedownExtra.php';
 
 $base = dirname(__DIR__);
 define('DS', DIRECTORY_SEPARATOR );
@@ -110,7 +109,21 @@ function parse($file) {
         $page['tags'] = array_merge($page['tags'], $tags);
         $page['tags'] = array_map('strtolower', $page['tags']);
         $page['tags'] = array_unique($page['tags']);
+        /*Remove lines that contains only tags */
         $content = preg_replace('/^(?:\s*#\w+\s*?)*$/m', '', $content);
+        /* Add trailing slashes to all internal links for consistence */
+        $content = preg_replace_callback('/\[(.*?)\]\((.*?)\)/', function($matches) {
+                $link = $matches[2];
+                $path_info = pathinfo($link);
+
+                // Check if the link has no extension
+                if (!isset($path_info['extension'])) {
+                    $link = rtrim($link, '/') . '/';
+                }
+
+    return '[' . $matches[1] . '](' . $link . ')';
+}, $content);
+
         $content = $parsedown->text($content);
         $page['content']= trim($content, " \n\r\t");
 
@@ -134,7 +147,13 @@ function parse($file) {
 
         $slug = trim($slug, DS);
         $slug = str_replace(DS, "/",$slug);
+        /*Adding a trailing slash to be consistent in URL scheme */
+        $slug = rtrim($slug,"/")."/";
         $page['slug'] = $slug;
+
+        /*Note on slug 
+        Slug is a relative url with trailing slash but not preceded by a slash
+        */
 
     
 
@@ -216,7 +235,7 @@ function createHTMLFile($page)
 
     $destination = $base.DS.$site['output-dir'].DS.$destination.DS."index.html";
 
-    echo "Built ".$page['slug']."/index.html"."\n";
+    echo "Built ".$page['slug']."index.html"."\n";
     ob_start();
     include($base.DS."_template/".$page['layout'].".php");
     $fileContent = ob_get_clean();
@@ -237,6 +256,8 @@ function scan($dir)
                 $page = parse($path);
                 if($page)
                 {   
+                    // echo "Pushing ".$page['slug']."\n";
+                    // echo "Total pages pushed: ".sizeof($pages)."\n";
                     array_push($pages, $page);
                 }
             } elseif (is_dir($path)) {
