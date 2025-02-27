@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Usage | My blog</title>
+	<title>Passage | My blog</title>
 	<link rel="stylesheet" href="/assets/style.css"/>
 </head>
 <body><nav class="navbar">
@@ -13,8 +13,8 @@
 	</div>
 </nav>
 	<div class="container main">
-	<h1 class="title">Usage</h1>
-	<p>a PHP based static site generator. It is highly customizable and easy. It uses PHP for creating templates, hence no need to learn a new templating language (as PHP itself is a templating language).</p>
+	<h1 class="title">Passage</h1>
+	<p>This is a PHP based static site generator. It is highly customizable and easy. It uses PHP for creating templates, hence no need to learn a new templating language (as PHP itself is a templating language).</p>
 <p>It uses Parsedown and Symphony YAML component to generate static html files.</p>
 <h1>Usage</h1>
 <ol>
@@ -55,6 +55,7 @@ tags: # Tags array, optional
 <h2>Variables available inside template</h2>
 <p><code>$site</code> variable contains all metadata contained in <code>config.yml</code> which is at the root folder in which <code>_engine</code> is placed. The variables are key of this array.</p>
 <p><code>$page</code> variable contains all metadata contained in frontmatter of a page. The variables are key of this array.</p>
+<p><code>$page['content']</code> contails the HTML content of the page generated from Markdown.</p>
 <h2>Assets</h2>
 <p>All files stored in <code>assets</code> folder will be copied to <code>_site/assets</code> as it is without any processing. This is used for images, css/js files, and other resources.</p>
 <h2>Dynamic CMS</h2>

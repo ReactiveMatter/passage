@@ -1,3 +1,5 @@
+# Passage
+
 This is a PHP based static site generator. It is highly customizable and easy. It uses PHP for creating templates, hence no need to learn a new templating language (as PHP itself is a templating language).
 
 It uses Parsedown and Symphony YAML component to generate static html files.
@@ -60,6 +62,8 @@ When rendering a page, where the layout property is set, the `_template/<layout_
 `$site` variable contains all metadata contained in `config.yml` which is at the root folder in which `_engine` is placed. The variables are key of this array.
 
 `$page` variable contains all metadata contained in frontmatter of a page. The variables are key of this array.
+
+`$page['content']` contails the HTML content of the page generated from Markdown.
 
 ## Assets
 
