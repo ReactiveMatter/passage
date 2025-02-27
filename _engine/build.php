@@ -110,7 +110,7 @@ function parse($file) {
         $page['tags'] = array_map('strtolower', $page['tags']);
         $page['tags'] = array_unique($page['tags']);
         /*Remove lines that contains only tags */
-        $content = preg_replace('/^(?:\s*#\w+\s*?)*$/m', '', $content);
+        $content = preg_replace('/^(?:\s*#[a-zA-Z0-9_-]+\s*?)*$/m', '', $content);
         /* Add trailing slashes to all internal links for consistence */
         $content = preg_replace_callback('/\[(.*?)\]\((.*?)\)/', function($matches) {
                 $link = $matches[2];
@@ -236,6 +236,7 @@ function createHTMLFile($page)
     $destination = $base.DS.$site['output-dir'].DS.$destination.DS."index.html";
 
     echo "Built ".$page['slug']."index.html"."\n";
+    echo $page['layout']."\n template being used";
     ob_start();
     include($base.DS."_template/".$page['layout'].".php");
     $fileContent = ob_get_clean();

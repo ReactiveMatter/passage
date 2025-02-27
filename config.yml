@@ -1,0 +1,8 @@
+title: My blog
+base: 
+support: [md, txt, html, htm]
+buildall: true
+output-dir: _site
+footer: Copyright © 2025
+default-category: General
+date-format: 'd F, Y'
