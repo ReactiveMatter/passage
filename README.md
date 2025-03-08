@@ -10,6 +10,10 @@ It uses Parsedown and Symphony YAML component to generate static html files.
 3. Add metadata as YAML frontmatter in your files as per requirement.
 4. Run `_engine/build.php` to build site. The files will be created in `_site` folder.
 
+```
+php _engine/build.php
+```
+
 ## Config
 
 The sitewide config is stored in `config.yml` file. The following config options are available.

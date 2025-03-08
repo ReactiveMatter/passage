@@ -1,17 +1,19 @@
 html {
 	position: relative;
-	min-height: 100%;
+	min-height: 100vh;
 	height: 100%;
 }
 
 body {
 	display: flex;
 	flex-direction: column;
-	min-height: 100%;
+	min-height: 100vh;
 	font-size: 18px;
 	color:#222;
 	background-color: white;
 	font-family: sans-serif;, Arial;
+	padding: 0px;
+	margin: 0px;
 }
 
 :root 
@@ -20,9 +22,31 @@ body {
 }
 
 
+.navbar a, .navbar a:hover 
+{
+	text-decoration: none;
+	color: #777;
+	border: 1px solid #777;
+	padding: 2px 5px;
+	border-radius: 3px;
+}
+
+.navbar a:hover
+{
+	color: #333;
+	background: #ccc;
+}
+
+
+
 a 
 {
 	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
 }
 
 .row, .col
@@ -40,3 +64,45 @@ table td
 	border: 1px solid #ccc;
 }
 
+.container 
+{
+	padding: 5px 10px;
+}
+
+.container.main 
+{
+	flex-grow: 1;
+}
+
+.table.page-results
+{
+	width: 100%;
+}
+
+a.tag 
+{
+	color: #777;
+}
+a.tag:hover
+{
+	color: #333;
+
+}
+a.tag::before
+{
+	display: inline-block;
+	content: "#";
+}
+
+code 
+{	
+	display: block;
+	padding: 3px 6px;
+	background: #eee;
+	border: 1px solid #ccc;
+}
+p code, li code 
+{
+	display: inline-block;
+	padding: 2px 4px;
+}

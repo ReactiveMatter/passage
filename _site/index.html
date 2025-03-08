@@ -10,13 +10,61 @@
 	<div class="container">		
 	    <a class="muted-link" href="/"/>Home</a>	
 		<a class="muted-link" href="/blog/">Blog</a>
+		<a class="muted-link" href="/about/">About</a>
 	</div>
 </nav>
 	<div class="container main">
 	<h1 class="title">Home</h1>
-	<p>This is my blog. </p>
-<p>Index page is using the default layout.</p>	</div>
+	<p>Passage is a PHP based static site generator. It is highly customizable and easy. It uses PHP for creating templates, hence no need to learn a new templating language (as PHP itself is a templating language).</p>
+<p>It uses Parsedown and Symphony YAML component to generate static html files.</p>
+<h1>Usage</h1>
+<ol>
+<li>Write your content in Markdown (.md) files with the directory structure as you desire. The folder path and name of the file is used as url.</li>
+<li>Create template in <code>_template</code> folder. The <code>layout</code> metadata</li>
+<li>Add metadata as YAML frontmatter in your files as per requirement.</li>
+<li>Run <code>_engine/build.php</code> to build site. The files will be created in <code>_site</code> folder.</li>
+</ol>
+<pre><code>php _engine/build.php</code></pre>
+<h2>Config</h2>
+<p>The sitewide config is stored in <code>config.yml</code> file. The following config options are available.</p>
+<pre><code>base: # The base for urls
+title: # Site title (Alternatively if first line of the content is a heading it is used as title.)
+support: [md, txt, html, htm] # File extensions which will be parsed
+buildall: true # Whether to build pages without frontmatter
+output-dir: _site # Output directory
+default-category: General 
+footer:  # Footer text, Implemented by template
+date-format: 'd F, Y' # Date display format, Implemented by template</code></pre>
+<p>You may add more options in config file, and the value can be accessed form the $site variable.</p>
+<h2>YAML metadata</h2>
+<p>The information about a page is to be stored in yaml frontmatter</p>
+<pre><code>title: # Title of the page
+layout: # Layout to be displayed _template/&lt;value&gt;.php is called for parsing
+date:2023-10-30 # Date, optional
+category: # category of the page
+tags: # Tags array, optional
+- tag1
+- tag2</code></pre>
+<h2>Tags</h2>
+<p>Apart from tags metadata, tags are also detected from words stating with '#' for e.g. <code>#tag1</code>;</p>
+<p>A line containing only tags is removed while rendering.</p>
+<h2>Drafts</h2>
+<p>A file tagged with <code>draft</code> will not be rendered.</p>
+<h1>Template</h1>
+<p>The presentation of the page is handled by the template. The template files resides in <code>_template</code> folder. The <code>_template</code> folder is placed in the same folder in which <code>_engine</code> is placed.</p>
+<h2>Layout</h2>
+<p>When rendering a page, where the layout property is set, the <code>_template/&lt;layout_name&gt;.php</code> file is called.  If the layout is not set, the nearest <em>folder name</em> is set as the layout. If page is in root, the value of <code>default-layout</code> set in config will be used. If <code>default-layout</code> is not set, then <code>page</code> will be set as default layout.</p>
+<h2>Variables available inside template</h2>
+<p><code>$site</code> variable contains all metadata contained in <code>config.yml</code> which is at the root folder in which <code>_engine</code> is placed. The variables are key of this array.</p>
+<p><code>$page</code> variable contains all metadata contained in frontmatter of a page. The variables are key of this array.</p>
+<p><code>$page['content']</code> contails the HTML content of the page generated from Markdown.</p>
+<h2>Assets</h2>
+<p>All files stored in <code>assets</code> folder will be copied to <code>_site/assets</code> as it is without any processing. This is used for images, css/js files, and other resources.</p>
+<h2>Dynamic CMS</h2>
+<p>If you need a dynamic CMS instead of SSG, try <a href="https://reactivematter.github.io/tunnelcms/">Tunnel CMS</a>, a dynamic counterpart of Passage.</p>	</div>
 </body>
 <footer class="footer">
-	Copyright © 2025</footer>
+	<div class="container">
+	Copyright © 2025	</div>
+</footer>
 </html>

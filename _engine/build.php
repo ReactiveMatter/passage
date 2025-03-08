@@ -236,7 +236,6 @@ function createHTMLFile($page)
     $destination = $base.DS.$site['output-dir'].DS.$destination.DS."index.html";
 
     echo "Built ".$page['slug']."index.html"."\n";
-    echo $page['layout']."\n template being used";
     ob_start();
     include($base.DS."_template/".$page['layout'].".php");
     $fileContent = ob_get_clean();

@@ -14,11 +14,12 @@
 	<span class="ml-auto category"><a class="category" href="<?=$site['base']."/category/".strtolower($page['category'])?>"><?=ucfirst($page['category'])?></a></span>
 	</div>
 	<?=$page['content']?>
-	</div>
-	<?php if (isset($page['tags']) && sizeof($page['tags']) > 1){
+	<?php if (isset($page['tags']) && sizeof($page['tags']) > 0){
 		echo '<p class="tags">Tags: '.implode(', ', $page['tags'])."</p>";
 	}
 	?>
+	</div>
+	
 
 <?php
 	include("include/footer.php");

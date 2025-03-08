@@ -10,6 +10,7 @@
 	<div class="container">		
 	    <a class="muted-link" href="/"/>Home</a>	
 		<a class="muted-link" href="/blog/">Blog</a>
+		<a class="muted-link" href="/about/">About</a>
 	</div>
 </nav>
 	<div class="container main">
@@ -23,6 +24,7 @@
 <li>Add metadata as YAML frontmatter in your files as per requirement.</li>
 <li>Run <code>_engine/build.php</code> to build site. The files will be created in <code>_site</code> folder.</li>
 </ol>
+<pre><code>php _engine/build.php</code></pre>
 <h2>Config</h2>
 <p>The sitewide config is stored in <code>config.yml</code> file. The following config options are available.</p>
 <pre><code>base: # The base for urls
@@ -62,5 +64,7 @@ tags: # Tags array, optional
 <p>If you need a dynamic CMS instead of SSG, try <a href="https://reactivematter.github.io/tunnelcms/">Tunnel CMS</a>, a dynamic counterpart of Passage.</p>	</div>
 </body>
 <footer class="footer">
-	Copyright © 2025</footer>
+	<div class="container">
+	Copyright © 2025	</div>
+</footer>
 </html>
