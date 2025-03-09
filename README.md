@@ -73,6 +73,14 @@ When rendering a page, where the layout property is set, the `_template/<layout_
 
 All files stored in `assets` folder will be copied to `_site/assets` as it is without any processing. This is used for images, css/js files, and other resources.
 
+## Screenshot of default template
+
+![[screenshot.png]]
+
 ## Dynamic CMS
 
 If you need a dynamic CMS instead of SSG, try [Tunnel CMS](https://reactivematter.github.io/tunnelcms/), a dynamic counterpart of Passage.
+
+## License
+
+This project is licensed under GPLv3.
