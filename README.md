@@ -75,7 +75,7 @@ All files stored in `assets` folder will be copied to `_site/assets` as it is wi
 
 ## Screenshot of default template
 
-![[screenshot.png]]
+![screenshot](screenshot.png) 
 
 ## Dynamic CMS
 
