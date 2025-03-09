@@ -28,7 +28,7 @@ footer:  # Footer text, Implemented by template
 date-format: 'd F, Y' # Date display format, Implemented by template
 ```
 
-You may add more options in config file, and the value can be accessed form the $site variable.
+You may add more options in config file, and the value can be accessed from the $site variable.
 
 ## YAML metadata
 
@@ -43,6 +43,8 @@ tags: # Tags array, optional
 - tag1
 - tag2
 ```
+
+You may add more options, but the working of those will have to be implemented by the template.
 
 ## Tags
 
@@ -72,6 +74,10 @@ When rendering a page, where the layout property is set, the `_template/<layout_
 ## Assets
 
 All files stored in `assets` folder will be copied to `_site/assets` as it is without any processing. This is used for images, css/js files, and other resources.
+
+## Flow in build.php file
+
+![flow](passage_flow.png) 
 
 ## Screenshot of default template
 

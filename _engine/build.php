@@ -10,6 +10,7 @@ mb_internal_encoding('UTF-8');
 
 $parsedown = new Parsedown();
 
+# Parse config.yml and store it in $site
 $site = Yaml::parseFile($base.DS."config.yml");
 
 if(isset($site['base']))
@@ -46,7 +47,7 @@ echo "Assests are at ".ASSETS."\n";
 
 $pages = [];
 
-// Function to serve a Markdown file as HTML
+// Function to parse one file md (or supported file). Outputs $page variable
 function parse($file) {
 
     global $parsedown, $site;
@@ -54,7 +55,6 @@ function parse($file) {
 
     $ext = pathinfo($file, PATHINFO_EXTENSION);
     $filename = pathinfo($file, PATHINFO_FILENAME);
-
 
     if (file_exists($file) && is_readable($file)) 
     {
@@ -117,12 +117,13 @@ function parse($file) {
                 $path_info = pathinfo($link);
 
                 // Check if the link has no extension
-                if (!isset($path_info['extension'])) {
+                if (!isset($path_info['extension'])) 
+                {
                     $link = rtrim($link, '/') . '/';
                 }
 
-    return '[' . $matches[1] . '](' . $link . ')';
-}, $content);
+        return '[' . $matches[1] . '](' . $link . ')';
+        }, $content);
 
         $content = $parsedown->text($content);
         $page['content']= trim($content, " \n\r\t");
@@ -154,8 +155,6 @@ function parse($file) {
         /*Note on slug 
         Slug is a relative url with trailing slash but not preceded by a slash
         */
-
-    
 
         $fileContent = "";
         
@@ -215,6 +214,7 @@ function parse($file) {
     return false;
 }
 
+/* Create HTML file from one $page variable */
 function createHTMLFile($page)
 {   
     global $base, $site, $pages;
@@ -244,6 +244,7 @@ function createHTMLFile($page)
     fclose($file);    
 }
 
+/* Scan for all files in the project directory. Parses each file and pushes in $pages variable */
 function scan($dir)
 {  global $base, $site, $pages, $counter;
     
@@ -253,11 +254,10 @@ function scan($dir)
         {   
             $path = $dir.DS.$entry;
             if (is_file($path)) {
+                //Parse file and push to $pages
                 $page = parse($path);
                 if($page)
                 {   
-                    // echo "Pushing ".$page['slug']."\n";
-                    // echo "Total pages pushed: ".sizeof($pages)."\n";
                     array_push($pages, $page);
                 }
             } elseif (is_dir($path)) {
@@ -271,6 +271,7 @@ function scan($dir)
 }
 
 
+/* Recursively generate HTML files from $pages variable */
 function generateHTMLFiles($pages)
 {
     for($i=0; $i < sizeof($pages); $i++) {
@@ -300,7 +301,7 @@ function sortByDate($pages)
 }
 
    
-
+/* Generate feed from a feed.php file in _template (if it exists) */
 function generateFeed()
 {
     global $base, $pages, $site;
@@ -312,6 +313,7 @@ function generateFeed()
     }
 }
 
+/* Copy all css, js files from _template to _site/assets */
 function copyAssets($dir)
 {   global $base, $site;
     $entries = scandir($dir);
@@ -344,7 +346,6 @@ function copyAssets($dir)
 
 
 /* Main functions */
-
 scan($base);
 generateHTMLFiles($pages);
 generateFeed();
